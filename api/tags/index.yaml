@@ -1,0 +1,24 @@
+- name: Profile
+  description: API calls for setting and viewing profile data
+- name: Images
+  description: Image upload API calls
+- name: Settings
+  description: API calls for setting mostly UI specific setting variables
+- name: Following
+  description: All API calls related to following and getting lists of following/followed peers
+- name: Moderator
+  description: API calls for moderation
+- name: Inventory
+  description: API calls for managing inventory
+- name: Listings
+  description: API calls for listings
+- name: Orders
+  description: API calls for ordering
+- name: Peers
+  description: RPC calls finding other peers
+- name: Wallet
+  description: Bitcoin wallet RPC calls
+- name: IPFS
+  description: IPFS gateway API
+- name: Misc
+  description: Miscellaneous API calls

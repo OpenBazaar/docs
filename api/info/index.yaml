@@ -1,0 +1,61 @@
+description: |
+    # Introduction
+    The OpenBazaar networking daemon combines a Kademlia DHT, IPFS node, Bitcoin wallet, and a peer-to-peer contracting system. This JSON API is the primary mechanism for controlling the node. It offers a RESTful api for building user interfaces as well as a number of RPC calls. In this documentation you'll find a full list of API calls and example usages.
+   
+    # Authentication
+    When running on localhost (the default), the API is unauthenticated. You can enable authentication by setting the config file as follows: 
+    ```
+     {
+        "JSON-API": {
+          "Authenticated": true
+          }
+     }
+    ```
+    Note that on mainnet the server enables authentication automatically if the gateway url is bound to anything other than localhost (implying open internet access) even if the config file is set to false.
+    
+    There are two ways for a client to authenticate. The default (and preferred) is via an authentication cookie. On start up the server generates a random cookie and saves it in the data directory as a .cookie file. You need to add this cookie to the header of all requests. For example:
+    ```
+    cookie: OpenBazaar_Auth_Cookie=2Yc7VZtG/pVKrH5Lp0mKRSEPC4xlm1dGpkbUXLehTUI
+    ```
+    Alternatively, you can use basic authentication by setting a username and password in the config file:
+    ```
+         {
+            "JSON-API": {
+              "Username": "Aladdin",
+              "Password": "OpenSesame"
+              }
+         }
+    ```
+    The username and password need to be included in the request header following [RFC 2617](https://www.ietf.org/rfc/rfc2617.txt):
+    ```
+    Authorization: Basic QWxhZGRpbjpvcGVuIHNlc2FtZQ==
+    ```
+    Where the username and password are encoded as `base64encode(username + ":" + password)`
+    or included in the Url:
+    ```
+    http://username:password@localhost:8080/ob/
+    ```
+    # SSL
+     **NEVER** open the JSON API to the internet without also encrypting the connection with SSL. Without SSL enabled your authentication information be sent to the server in the clear allowing anyone who views your packets to access your server and potentially steal your bitcoins. For instructions on how to enable SSL, see [here](https://github.com/OpenBazaar/openbazaar-go/blob/master/docs/ssl.md).
+    # Cross-Origin Resource Sharing
+    CORS is turned off by default, meaning that you will not be able to make API calls from a browser to a running server on localhost. You can turn CORS on for a specific domain by setting an origin in the config file as follows:
+     ```
+     {
+        "JSON-API": {
+          "CORS": "https://opeenbazaar.org"
+          }
+     }
+    ```
+    Use "*" to allow all domains. Keep in mind that running the server with CORS enabled for all domains is a potential secrity risk as it will allow any website you visit to make calls to your server. Authentication should be enabled along side CORS.
+
+  version: 1.0.0
+  title: OpenBazaar JSON API
+  termsOfService: There are no TOS at this moment, use at your own risk we take no responsibility.
+  contact:
+    email: project@openbazaar.org
+    url: https://openbazaar.org
+  x-logo:
+    url: 'https://openbazaar.org/assets/img/icon-large.png'
+  license:
+    name: MIT
+    url: 'http://opensource.org/licenses/MIT'
