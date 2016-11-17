@@ -1,4 +1,4 @@
-site_name: OpenBazaar Documentation
+site_name: OpenBazaar
 site_url: https://docs.openbazaar.org
 repo_url: https://github.com/OpenBazaar/docs/
 pages:
@@ -9,4 +9,3 @@ pages:
 - Glossary: glossary.md
 - References: references.md
 - Examples: examples.md 
-theme: cinder
