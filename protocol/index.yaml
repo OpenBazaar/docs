@@ -1,0 +1,13 @@
+swagger: '2.0'
+info:
+  $ref: ./info/index.yaml
+tags:
+  $ref: ./tags/index.yaml
+# Swagger will complaim if we don't define at least one path
+paths:
+  /dummy:
+    get:
+      responses:
+        200:
+          description: Successful response
+          
