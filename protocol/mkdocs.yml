@@ -1,0 +1,12 @@
+site_name: OpenBazaar Documentation
+site_url: https://docs.openbazaar.org
+repo_url: https://github.com/OpenBazaar/docs/
+pages:
+- About: index.md
+- Overview: overview.md
+- Protocol: protocol.md
+- API: api.md
+- Glossary: glossary.md
+- References: references.md
+- Examples: examples.md 
+theme: cinder
