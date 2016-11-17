@@ -1,69 +1,7 @@
   /ipfs/{hash}/:
-    get:
-      tags:
-          - IPFS
-      summary: Fetch file from IPFS
-      description: This API call will query the DHT using the given hash to get a list of peers who are seeding the file. Depending on the size of the file it will then download it from one or more of them.
-        The hash may be a directory. In which case this API returns an HTML directory view. To view the files inside the directory, you can add either add their filename or hash to the query. For example...
-        ```
-        ipfs/QmecpJrN9RJ7smyYByQdZUy5mF6aapgCfKLKRmDtycv9aG/some_image.jpg
-        ipfs/QmecpJrN9RJ7smyYByQdZUy5mF6aapgCfKLKRmDtycv9aG/QmamudHQGtztShX7Nc9HcczehdpGGWpFBWu2JvKWcpELxr
-        ```
-        And of course nested directories are also supported, referenced again by a name or hash.
-        ```
-        ipfs/QmecpJrN9RJ7smyYByQdZUy5mF6aapgCfKLKRmDtycv9aG/my_directory/some_image.jpg
-        ipfs/QmecpJrN9RJ7smyYByQdZUy5mF6aapgCfKLKRmDtycv9aG/QmamudHQGtztShX7Nc9HcczehdpGGWpFBWu2JvKWcpELxr/some_image.jpg
-        ```
-      operationId: IPFS
-      parameters:
-        - name: hash
-          in: path
-          description: A base58 encoded multihash
-          required: true
-          type: string
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Bad Request
-          schema:
-            $ref: '../definitions/index.yaml#/IPFSResponse'
-        '500':
-          description: Internal Server Error
-          schema:
-            $ref: '../definitions/index.yaml#/IPFSResponse'
+    $ref: ./ipfs.yaml
   /ipns/{peerId}/:
-    get:
-      tags:
-          - IPFS
-      summary: Fetch file from IPNS
-      description: The IPNS protocol allows for a user to map their peer ID to an IPFS hash in a cryptographically secure manner. When an IPNS query is made, the server first queries the DHT to resolve the peer ID into an IPFS hash, then proceeds to make an IPFS query given the resolved hash. For example, suppose we have the following mapping..
-        ```
-        {peerId} = {hash}
-        ```
-        Then the following API calls are equal...
-        ```
-        ipfs/{hash}/some_image.jpg
-        ipns/{peerId}/some_image.jpg
-        ```
-      operationId: IPNS
-      parameters:
-        - name: peerId
-          in: path
-          description: A base58 encoded multihash peer ID or a blockchain ID.
-          required: true
-          type: string
-      responses:
-        '200':
-          description: OK
-        '400':
-          description: Bad Request
-          schema:
-            $ref: '../definitions/index.yaml#/IPFSResponse'
-        '500':
-          description: Internal Server Error
-          schema:
-            $ref: '../definitions/index.yaml#/IPFSResponse'
+    $ref: ./ipns.yaml
   /ob/follow:
     post:
       tags:
