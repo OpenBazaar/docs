@@ -3,7 +3,7 @@
       tags:
           - IPFS
       summary: Fetch file from IPFS
-      description: This API call will query the DHT using the given hash to get a list of peers who are seeding the file. Depending on the size of the file it will then download it from one or more of them. 
+      description: This API call will query the DHT using the given hash to get a list of peers who are seeding the file. Depending on the size of the file it will then download it from one or more of them.
         The hash may be a directory. In which case this API returns an HTML directory view. To view the files inside the directory, you can add either add their filename or hash to the query. For example...
         ```
         ipfs/QmecpJrN9RJ7smyYByQdZUy5mF6aapgCfKLKRmDtycv9aG/some_image.jpg
@@ -27,11 +27,11 @@
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/IPFSResponse'
+            $ref: '../definitions/index.yaml#/IPFSResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/IPFSResponse'  
+            $ref: '../definitions/index.yaml#/IPFSResponse'
   /ipns/{peerId}/:
     get:
       tags:
@@ -59,11 +59,11 @@
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/IPFSResponse'
+            $ref: '../definitions/index.yaml#/IPFSResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/IPFSResponse'  
+            $ref: '../definitions/index.yaml#/IPFSResponse'
   /ob/follow:
     post:
       tags:
@@ -81,20 +81,20 @@
           description: Follow object containing a peer ID.
           required: true
           schema:
-            $ref: '#/definitions/Follow'
+            $ref: '../definitions/index.yaml#/Follow'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ob/unfollow:
     post:
       tags:
@@ -112,20 +112,20 @@
           description: Unfollow object containing a peer ID.
           required: true
           schema:
-            $ref: '#/definitions/Follow'
+            $ref: '../definitions/index.yaml#/Follow'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ob/followers:
     get:
       tags:
@@ -152,11 +152,11 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/FollowResponse'
+            $ref: '../definitions/index.yaml#/FollowResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ob/following:
     get:
       tags:
@@ -183,11 +183,11 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/FollowResponse'
+            $ref: '../definitions/index.yaml#/FollowResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse' 
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ob/followsme/{peerId}:
     get:
       tags:
@@ -209,7 +209,7 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/FollowsMeResponse'
+            $ref: '../definitions/index.yaml#/FollowsMeResponse'
   /ob/isfollowing/{peerId}:
     get:
       tags:
@@ -231,7 +231,7 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/IsFollowingResponse'
+            $ref: '../definitions/index.yaml#/IsFollowingResponse'
   /ob/profile:
     post:
       tags:
@@ -249,24 +249,24 @@
           description: Profile object
           required: true
           schema:
-            $ref: '#/definitions/Profile'
+            $ref: '../definitions/index.yaml#/Profile'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Profile'
+            $ref: '../definitions/index.yaml#/Profile'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '409':
           description: Conflict
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
     put:
       tags:
         - Profile
@@ -283,24 +283,24 @@
           description: Profile object
           required: true
           schema:
-            $ref: '#/definitions/Profile'
+            $ref: '../definitions/index.yaml#/Profile'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Profile'
+            $ref: '../definitions/index.yaml#/Profile'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '404':
           description: Not Found
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'  
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ipns/{peerId}/profile:
     get:
       tags:
@@ -322,15 +322,15 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Profile'
+            $ref: '../definitions/index.yaml#/Profile'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/IPFSResponse'
+            $ref: '../definitions/index.yaml#/IPFSResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/IPFSResponse'  
+            $ref: '../definitions/index.yaml#/IPFSResponse'
   /ob/settings:
     post:
       tags:
@@ -348,24 +348,24 @@
           description: Settings object
           required: true
           schema:
-            $ref: '#/definitions/Settings'
+            $ref: '../definitions/index.yaml#/Settings'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '409':
           description: Conflict
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
     put:
       tags:
         - Settings
@@ -382,29 +382,29 @@
           description: Settings object
           required: true
           schema:
-            $ref: '#/definitions/Settings'
+            $ref: '../definitions/index.yaml#/Settings'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '404':
           description: Not Found
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
     patch:
       tags:
         - Settings
       summary: Patch settings
-      description: Update individual settings without overwriting the rest. 
+      description: Update individual settings without overwriting the rest.
       operationId: PatchSettings
       consumes:
         - application/json
@@ -416,29 +416,29 @@
           description: Settings object with only those fields set which should be updated.
           required: true
           schema:
-            $ref: '#/definitions/Settings'
+            $ref: '../definitions/index.yaml#/Settings'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '404':
           description: Not Found
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
     get:
       tags:
         - Settings
       summary: Get the settings
-      description: Fetch the settings from the database 
+      description: Fetch the settings from the database
       operationId: GetSettings
       consumes:
         - application/json
@@ -448,21 +448,21 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Settings'
+            $ref: '../definitions/index.yaml#/Settings'
         '404':
           description: Not Found
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'   
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /wallet/address:
     get:
       tags:
         - Wallet
       summary: Get a bitcoin address
-      description: Returns an unused bitcoin address. Note the same address is returned until the address is used. 
+      description: Returns an unused bitcoin address. Note the same address is returned until the address is used.
       operationId: GetBitcoinAddress
       consumes:
         - application/json
@@ -472,7 +472,7 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Address'    
+            $ref: '../definitions/index.yaml#/Address'
   /wallet/mnemonic:
     get:
       tags:
@@ -488,11 +488,11 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Mnemonic'   
+            $ref: '../definitions/index.yaml#/Mnemonic'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'   
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /wallet/balance:
     get:
       tags:
@@ -508,7 +508,7 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Balance'    
+            $ref: '../definitions/index.yaml#/Balance'
   /wallet/spend:
     post:
       tags:
@@ -526,20 +526,20 @@
           description: Spend object
           required: true
           schema:
-            $ref: '#/definitions/Spend'
+            $ref: '../definitions/index.yaml#/Spend'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'  
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /wallet/resyncblockchain:
     post:
       tags:
@@ -555,7 +555,7 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'  
+            $ref: '../definitions/index.yaml#/DefaultResponse'
   /ob/peers:
     get:
       tags:
@@ -571,11 +571,11 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Peers'  
+            $ref: '../definitions/index.yaml#/Peers'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ob/status/{peerId}:
     get:
       tags:
@@ -597,7 +597,7 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Status'  
+            $ref: '../definitions/index.yaml#/Status'
   /ob/closestpeers/{peerId}:
     get:
       tags:
@@ -619,11 +619,11 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Peers'  
+            $ref: '../definitions/index.yaml#/Peers'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ob/avatar:
     post:
       tags:
@@ -641,20 +641,20 @@
           description: Avatar object includes a base64 encoded image
           required: true
           schema:
-            $ref: '#/definitions/Avatar'
+            $ref: '../definitions/index.yaml#/Avatar'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/ImageHashes'
+            $ref: '../definitions/index.yaml#/ImageHashes'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ipns/{peerId}/images/{size}/avatar:
     get:
       tags:
@@ -693,20 +693,20 @@
           description: Header object includes a base64 encoded image
           required: true
           schema:
-            $ref: '#/definitions/ImageHashes'
+            $ref: '../definitions/index.yaml#/ImageHashes'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ipns/{peerId}/images/{size}/header:
     get:
       tags:
@@ -745,20 +745,20 @@
           description: List of image objects which include a base64 encoded image
           required: true
           schema:
-            $ref: '#/definitions/Images'
+            $ref: '../definitions/index.yaml#/Images'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/ImageResponse'
+            $ref: '../definitions/index.yaml#/ImageResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ipns/{peerId}/images/{size}/{filename}:
     get:
       tags:
@@ -802,24 +802,24 @@
           description: Moderator object
           required: true
           schema:
-            $ref: '#/definitions/Moderator'
+            $ref: '../definitions/index.yaml#/Moderator'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '409':
           description: Conflict
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
     put:
       tags:
         - Moderator
@@ -836,24 +836,24 @@
           description: Moderator object
           required: true
           schema:
-            $ref: '#/definitions/Moderator'
+            $ref: '../definitions/index.yaml#/Moderator'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '404':
           description: Not Found
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
     delete:
       tags:
         - Moderator
@@ -868,15 +868,15 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '404':
           description: Not Found
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ipns/{peerId}/moderation:
     get:
       tags:
@@ -898,15 +898,15 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Moderator'
+            $ref: '../definitions/index.yaml#/Moderator'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/IPFSResponse'
+            $ref: '../definitions/index.yaml#/IPFSResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/IPFSResponse'  
+            $ref: '../definitions/index.yaml#/IPFSResponse'
   /ob/moderators:
     get:
       tags:
@@ -928,15 +928,15 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/ModeratorList'
+            $ref: '../definitions/index.yaml#/ModeratorList'
         '202':
           description: OK
           schema:
-            $ref: '#/definitions/AsyncId'
+            $ref: '../definitions/index.yaml#/AsyncId'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/IPFSResponse'            
+            $ref: '../definitions/index.yaml#/IPFSResponse'
   /ob/inventory:
     post:
       tags:
@@ -954,20 +954,20 @@
           description: Inventory object
           required: true
           schema:
-            $ref: '#/definitions/Inventory'
+            $ref: '../definitions/index.yaml#/Inventory'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
     get:
       tags:
         - Inventory
@@ -982,8 +982,8 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/InventoryList'
-  /ob/config:          
+            $ref: '../definitions/index.yaml#/InventoryList'
+  /ob/config:
     get:
       tags:
        - Misc
@@ -998,8 +998,8 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/Config'
-  /ob/exchangerate/{currencyCode}:          
+            $ref: '../definitions/index.yaml#/Config'
+  /ob/exchangerate/{currencyCode}:
     get:
       tags:
         - Misc
@@ -1020,11 +1020,11 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/ExchangeRate'
+            $ref: '../definitions/index.yaml#/ExchangeRate'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ob/listing:
     post:
       tags:
@@ -1042,24 +1042,24 @@
           description: Listing request object
           required: true
           schema:
-            $ref: '#/definitions/ListingPost'
+            $ref: '../definitions/index.yaml#/ListingPost'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/SlugResponse'
+            $ref: '../definitions/index.yaml#/SlugResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '409':
           description: Conflict
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
     put:
       tags:
         - Listings
@@ -1076,28 +1076,28 @@
           description: Listing request object
           required: true
           schema:
-            $ref: '#/definitions/ListingPut'
+            $ref: '../definitions/index.yaml#/ListingPut'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '404':
           description: Not Found
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '409':
           description: Conflict
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
     delete:
       tags:
         - Listings
@@ -1114,20 +1114,20 @@
           description: Current slug object
           required: true
           schema:
-            $ref: '#/definitions/ListingDelete'
+            $ref: '../definitions/index.yaml#/ListingDelete'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ob/listing/{id}:
     get:
       tags:
@@ -1149,15 +1149,15 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/ListingGet'
+            $ref: '../definitions/index.yaml#/ListingGet'
         '404':
           description: Not Found
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ipns/{peerId}/listings/{slug}:
     get:
       tags:
@@ -1180,15 +1180,15 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/RawListingGet'
+            $ref: '../definitions/index.yaml#/RawListingGet'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/IPFSResponse'
+            $ref: '../definitions/index.yaml#/IPFSResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/IPFSResponse' 
+            $ref: '../definitions/index.yaml#/IPFSResponse'
   /ob/purchase:
     post:
       tags:
@@ -1206,20 +1206,20 @@
           description: Purchase object
           required: true
           schema:
-            $ref: '#/definitions/PurchaseData'
+            $ref: '../definitions/index.yaml#/PurchaseData'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/PurchaseResponse'
+            $ref: '../definitions/index.yaml#/PurchaseResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ob/orderconfirmation:
     post:
       tags:
@@ -1237,24 +1237,24 @@
           description: Order confirmation object
           required: true
           schema:
-            $ref: '#/definitions/OrderConfirmation'
+            $ref: '../definitions/index.yaml#/OrderConfirmation'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '404':
           description: Not Found
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ob/orderfulfillment:
     post:
       tags:
@@ -1272,24 +1272,24 @@
           description: Order fulfillment object
           required: true
           schema:
-            $ref: '#/definitions/OrderFulfillment'
+            $ref: '../definitions/index.yaml#/OrderFulfillment'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '404':
           description: Not Found
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ob/ordercompletion:
     post:
       tags:
@@ -1307,30 +1307,30 @@
           description: Order completion object
           required: true
           schema:
-            $ref: '#/definitions/OrderCompletion'
+            $ref: '../definitions/index.yaml#/OrderCompletion'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '404':
           description: Not Found
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ob/ordercancel:
     post:
       tags:
         - Orders
       summary: Cancel an offline order
-      description: Cancel an outstanding offline order. It will move the bitcoins back into your wallet. 
+      description: Cancel an outstanding offline order. It will move the bitcoins back into your wallet.
       operationId: PostCancelConfirmation
       consumes:
         - application/json
@@ -1342,24 +1342,24 @@
           description: Order cancel object
           required: true
           schema:
-            $ref: '#/definitions/OrderCancel'
+            $ref: '../definitions/index.yaml#/OrderCancel'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '404':
           description: Not Found
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ob/refund:
     post:
       tags:
@@ -1377,24 +1377,24 @@
           description: Refund object
           required: true
           schema:
-            $ref: '#/definitions/Refund'
+            $ref: '../definitions/index.yaml#/Refund'
       responses:
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/DefaultResponse'
+            $ref: '../definitions/index.yaml#/DefaultResponse'
         '400':
           description: Bad Request
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '404':
           description: Not Found
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'      
+            $ref: '../definitions/index.yaml#/ErrorResponse'
   /ob/order/{orderId}:
     post:
       tags:
@@ -1416,12 +1416,12 @@
         '200':
           description: OK
           schema:
-            $ref: '#/definitions/OrderResponse'
+            $ref: '../definitions/index.yaml#/OrderResponse'
         '404':
           description: Not Found
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'
         '500':
           description: Internal Server Error
           schema:
-            $ref: '#/definitions/ErrorResponse'
+            $ref: '../definitions/index.yaml#/ErrorResponse'

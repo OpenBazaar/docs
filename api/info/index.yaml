@@ -47,15 +47,14 @@ description: |
      }
     ```
     Use "*" to allow all domains. Keep in mind that running the server with CORS enabled for all domains is a potential secrity risk as it will allow any website you visit to make calls to your server. Authentication should be enabled along side CORS.
-
-  version: 1.0.0
-  title: OpenBazaar JSON API
-  termsOfService: There are no TOS at this moment, use at your own risk we take no responsibility.
-  contact:
-    email: project@openbazaar.org
-    url: https://openbazaar.org
-  x-logo:
-    url: 'https://openbazaar.org/assets/img/icon-large.png'
-  license:
-    name: MIT
-    url: 'http://opensource.org/licenses/MIT'
+version: 1.0.0
+title: OpenBazaar JSON API
+termsOfService: There are no TOS at this moment, use at your own risk we take no responsibility.
+contact:
+  email: project@openbazaar.org
+  url: https://openbazaar.org
+x-logo:
+  url: 'https://openbazaar.org/assets/img/icon-large.png'
+license:
+  name: MIT
+  url: 'http://opensource.org/licenses/MIT'
