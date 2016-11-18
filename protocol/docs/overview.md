@@ -295,5 +295,77 @@ Using the IPNS protocol the above API call which fetched the listing could be re
 And by using other nameing protocols such as <a href="https://blockstack.org/">Blockstack</a> we can cryptographically map a user's `peerID`, which is a rather ugly looking series of numbers and letters, to a more human readable username such as `@UrbanArt`. Thus one only needs to know the human readable username to download user content in a cryptographically secure manner. 
 
 ## Bitcoin
+The digital currency Bitcoin is used in OpenBazaar as the primary means of payment. The reason for this choice is two-fold. First, it aligns well with the goals of the project to be a decentralized, censorship-resistant eCommerce platform without a middle man. Bitcoin is also decentralized, censorship-resistant, and has no middlemen. It also has very low transaction fees compared to other forms of payment. Presently a bitcoin transaction can be made for about 10¢ USD compared to about 30¢ *plus* 2.9% of the total for PayPal. Credit cards similarly take a percentage of the transaction. And, of course, those methods of payment can be tracked and censored if need be. 
+
+We should suppliment the previous statment on fees slightly. If a user wishes to convert bitcoins he earned from selling on OpenBazaar to fiat currency, he likely will incure some additional fees for the currency conversion. However, presently the company <a href="https://www.coinbase.com/">Coinbase</a> allows vendors to convert up to $1 million USD for free and at a 1% fee for everything over $1 million. Which is to say, even when factoring in currency conversion, Bitcoin can still be far cheaper than the alternatives (and of course there are zero fees to sell on OpenBazaar). 
+
+The second reason Bitcoin is a good choice is it allows us to build the trustless escrow system we mentioned earlier. All other forms of payment require you to use the payment provider (such as PayPal) for arbitration if you have a dispute. With Bitcoin, we can not only create a free market for escrow/arbitration services, but we can do so in such a way as to remove the risk that the escrow agent will steal (or lose) the funds. 
+
+#### Multisig scripts
+If you like to learn more about how Bitcoin works we'd suggest reading the <a href="https://bitcoin.org/en/developer-guide">Bitcoin Developer Guide</a>. However, we can provide a quick overview of how the escrow system works. 
+
+In Bitcoin the coins are not technically sent to a bitcoin "address" or account. Instead they are sent into a tiny computer program (or script). This script sets the terms upon which the coins are allow to be transferred. A person seeking to spend bitcoins provides the inputs to the script function and the bitcoin software will execute it. If the script returns `True` (and all other transaction checks pass) then the bitcoins may be transferred to another script. 
+
+The specific script we use looks something like this:
+```
+OP_HASH160 <Hash160(redeemScript)> OP_EQUAL
+```
+
+Technically this script means "anyone who knows a certain password can spend these coins", however Bitcoin underwent a softfork upgrade several years ago which gives this script a "special" meaning. In essence, when the interpreter sees this script it interprets it, not as a password script, but as something called "pay to script hash" or P2SH.
+
+Coins sent to this script can be spent by providing a `redeem script` whose hash matches the hash in the output script and then by fulfilling the terms of the `redeem script`.
+
+In OpenBazaar we use a redeem sript that looks like:
+
+```
+OP_2 <buyer_pubkey> <vendor_pubkey> <moderator_pubkey> OP_3 OP_CHECKMULTISIG
+```
+
+This script says the funds may be transferred if signatures matching two of the three listed public keys are provided.
+
+The scripting langauge is flexible enough that we could extend it with additional features in the future. For example, suppose we want to add a timeout to the escrow. That is, if the buyer doesn't release the fund or file a dispute within 60 days, the funds will then be transfered to the vendor. Essentially this can save the vendor some headaches trying to collect his payment. 
+
+This redeem script would look like:
+
+```
+OP_IF
+    OP_2 <buyer_pubkey> <vendor_pubkey> <moderator_pubkey> OP_3 OP_CHECKMULTISIG
+OP_ELSE
+   "60d" OP_CHECKSEQUENCEVERIFY OP_DROP
+    <vendor_pubkey> OP_CHECKSIG
+OP_ENDIF
+```
+
+#### Bitcoin Wallets
+The OpenBazaar protocol specification has nothing to say about which Bitcoin wallet should be used with the protocol. However, to improve the user experience, the reference implementation comes bundled with a built-in wallet. The default wallet implements something call Simplified Payment Verification (SPV) which provides strong cryptographic validation of incoming Bitcoin transactions while using very little of the computer's resources. The drawback to SPV mode is it leaks enough private data to allow potential attackers to figure out which transactions came from the wallet. Although that information by itself doesn't say who the *owner* of the the wallet is (other investigative techniques might provide that information, however). 
+
+For this reason, there is a setting in the openbazaar-go config file that allows a user to use bitcoind (a full Bitcoin implementation) with openbazaar-go. Bitcoind is a very heavyweight software and is typically only used by power users, however it does a much better job than SPV at providing transactional privacy. 
+
+#### Altcoins
+There isn't anything Bitcoin specific about Kademlia, IPFS, or Ricardian Contracts. In theory the OpenBazaar protocol could work with any digitial currency, not just Bitcoin. In practice however, there are certain features a digitial currency must have to be used with the OpenBazaar protocol that not every altcoin has. For example, an altcoin must support multisignature transactions else the escrow system will not work. The protocol also makes some assumptions about the existence of payment addresses and transaction inputs and outputs. These assumptions could probably be abstracted away in future versions of the protocol, but it stands to reason that altcoins that are a close derivative to Bitcoin would work better with the OpenBazaar protocol than coins that are a dramatic departure from it. 
 
 ## Ricardian Contracts
+A traditional contract is a written or spoken agreement among two (or more) parties to exchange something of value. Everytime we transact for anything we are entering into a legally binding contract, even if they are only verbal. When you purchase things on the internet, you are likewise entering into a legally binding contract. However, contracts are sometimes poorly written, ambiguous or difficult to interpret. They may be subject to *frog-boiling* where a strong party attempts to change the contract over time in his favor or even to one party denying they agreed the contract. These issue can make it difficult for aribtrators to determine who is correct in a dispute. 
+
+A Ricardian Contract is a type of cryptographic contract that attempts to solve these problems. Ricardian contracts a both human readable and machine parsable and provide an irrefutable record of what both parties agree to. It's not clear whether a Ricardian Contract would be treated as a valid contract in court (it would likely vary by jurisdiction anyway) but it doesn't matter as the terms of the contract can be enforced programatically by software. 
+
+In OpenBazaar the Ricardian Contract looks as follows:
+```protobuf
+syntax = "proto3";
+
+message RicardianContract {
+    repeated Listing vendorListings                    = 1;
+    Order buyerOrder                                   = 2;
+    OrderConfirmation vendorOrderConfirmation          = 3;
+    repeated OrderFulfillment vendorOrderFulfillment   = 4;
+    OrderCompletion buyerOrderCompletion               = 5;
+    Dispute dispute                                    = 6;
+    DisputeResolution disputeResolution                = 7;
+    Refund refund                                      = 8;
+    repeated Signature signatures                      = 9;
+}
+```
+
+Each section of the contract is signed by the appropriate party's identity key. For example, the vendor signs the `Listing` object while the buyer signs the `Order` object. As the order progresses through different states, new objects are appended to the contract along with their signatures. When a dispute is filed with a moderator, the contract is sent to the moderator, programatically validated, and then marshalled to JSON for the moderator to read. The contract contains all the information a moderator needs to make a decision and doesn't provide any wiggle room for the buyer and vendor to try to manipulate the outcome. 
+
+The Ricardian Contract structure is very extensible and allows virtually an unlimited number of contract types to be created.
