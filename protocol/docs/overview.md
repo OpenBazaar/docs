@@ -9,10 +9,10 @@ This network architecture causes downloads to behave differently than the tradit
 Replicating data across multiple nodes also makes the data more resistant to censorship than the traditional client-server model. Taking a store offline isn't simply a matter of locating a server and performing a denial of service attack. In our case the data can persist whether the originating node is online or not. 
 
 #### Contracts
-If a buyer decides to make a purchase, a signed order message is sent to the vendor (the vendor can be offline at this point as there is a means to recover messages sent to you while you're offline). The buyer has the option of to pay for the order by sending bitcoins either directly to the vendor or by funding an escrow address (more on this in a minute). The orders are recorded in a cryptographic data structure known as a Ricardian Contract. Any futher messages sent between the buyer and vendor, such as the order confirmation or order fulfilment messages, are recorded in the contract providing a cryptographic record of the order's history. 
+If a buyer decides to make a purchase, a signed order message is sent to the vendor (the vendor can be offline at this point as there is a means to recover messages sent to you while you're offline). The buyer has the option of paying for the order by sending bitcoins either directly to the vendor or by funding an escrow address (more on this in a minute). The orders are recorded in a cryptographic data structure known as a Ricardian Contract. Any further messages sent between the buyer and vendor, such as the order confirmation or order fulfilment messages, are recorded in the contract providing a cryptographic record of the order's history. 
 
 #### Escrow
-Unlike centralized eCommerce platforms, in OpenBazaar there isn't any company that can provide arbitration services if a contract is breached. However, this ends up being a stregth of the platform as it allows for the creation of a market for such arbitration services. In OpenBazaar, the term "moderator" is used to represent a user who offers escrow/arbitration services to users of the network. 
+Unlike centralized eCommerce platforms, in OpenBazaar there isn't any company that can provide arbitration services if a contract is breached. However, this ends up being a strength of the platform as it allows for the creation of a market for such arbitration services. In OpenBazaar, the term "moderator" is used to represent a user who offers escrow/arbitration services to users of the network. 
 
 Vendors have the option to select one or more moderators when creating listings. The vendor's choice of moderator(s) should be considered part of the bundle of goods offered up for sale. If a buyer does not recognize any of the moderators or does not believe any of them to be trustworthy, then he should not purchase the item. 
 
@@ -41,31 +41,31 @@ The following is an example of a typlical network topology. In this example, we'
 
 #### Routing Tables
 
-Each node maintains a *routing* *table* which contains a list of peers (ID and IP address) that it knows about. We again run into scalability issues if each node attempts store *all* nodes in it's routing table. Therefore each node only stores a subset of the total nodes in its routing table giving it only a *partial* view of the network. 
+Each node maintains a *routing* *table* which contains a list of peers (ID and IP address) that it knows about. We again run into scalability issues if each node attempts to store *all* nodes in its routing table. Therefore each node only stores a subset of the total nodes in its routing table giving it only a *partial* view of the network. 
 
 However, it's not suffient to choose which nodes to store or not at random. Instead each node makes a decision whether to add a node to its routing table based on an algorithm. The goal of this algorithm is to ensure that the node has a fairly complete view of the other nodes that are "close" to it and a less complete, or partial, view of the nodes that "farther" away.
 
 Now what do we mean by "close"? We're not talking about physical distance (such as Node 14 is in Chicago and Node 38 is in Hong Kong). Instead we are going to define *distance* in terms of each node's peer ID. One way to do this could be to use absolute value. For example, the "distance" between Node 14 and Node 38 would be 24 (|14 - 38| = 24). However, in Kademlia we use the xor(⊕) operation to determine distance. For example, the "distance" between Node 14 and Node 38 when measured by the xor metric is 40 (14 ⊕ 38 = 40 and also 38 ⊕ 14 = 40).
 
-Now that we have an idea what we mean by "close", we can proceed to define our algorithm. The routing table starts out containing only a single *bucket* which can hold at most *K* peers. The *K* parameter is selected as a tradeoff between efficiency and data redundancy. Typically it's set to 20 as research suggest that number is close to optimal. Every bucket has a *range* of peer IDs that it covers. For the sake of this example, let's suppose the range of our peer IDs is 0 to 99 (again a real network would be 0 to 2<sup>256</sup>).
+Now that we have an idea what we mean by "close", we can proceed to define our algorithm. The routing table starts out containing only a single *bucket* which can hold at most *K* peers. The *K* parameter is selected as a tradeoff between efficiency and data redundancy. Typically it's set to 20 as research suggests that number is close to optimal. Every bucket has a *range* of peer IDs that it covers. For the sake of this example, let's suppose the range of our peer IDs is 0 to 99 (again a real network would be 0 to 2<sup>256</sup>).
 
 Each time a node learns of a new peer (this tends to happen automatically peers will contact you periodically looking for data) it adds that peer to the bucket. If the bucket is full (meaning it already has 20 peers in it), the algorithm splits the bucket into two separate buckets as follows:
 
 <img src="https://imgur.com/download/fnerbpB">
 
-And the new peer would be added to the bucket whose range it ID falls within. For example, if we were adding peer 19, it would be added to bucket 0. Now that we have more than one bucket, the decision about what to do when a bucket gets full is slightly different. If the ID of the peer falls within a bucket whose range *our* node's ID also falls (we could call this our *neighborhood*), then we split the bucket just like in our previous example. If the the bucket's range does not encompass *our* node ID, then we don't add the peer to our routing table. 
+And the new peer would be added to the bucket whose range its ID falls within. For example, if we were adding peer 19, it would be added to bucket 0. Now that we have more than one bucket, the decision about what to do when a bucket gets full is slightly different. If the ID of the peer falls within a bucket whose range *our* node's ID also falls (we could call this our *neighborhood*), then we split the bucket just like in our previous example. If the bucket's range does not encompass *our* node ID, then we don't add the peer to our routing table. 
 
-As an example, suppose our Node ID is 29. We fall within the range of bucket 0. Further suppose we are considering whether we should add Node 74 to our routing table. Node 74 falls within bucket 1 but bucket 1 is full. In this case we do *not* add Node 74 since it fall in a full bucket that is different from the bucket our Node ID would fall within. 
+As an example, suppose our Node ID is 29. We fall within the range of bucket 0. Further suppose we are considering whether we should add Node 74 to our routing table. Node 74 falls within bucket 1 but bucket 1 is full. In this case we do *not* add Node 74 since it falls in a full bucket that is different from the bucket our Node ID would fall within. 
 
 If we were to consider adding node 42 to bucket 0 but bucket 0 is full, we would *split* bucket 0 into two separate buckets because that is the bucket whose range our own ID falls within. 
 
-Through this algorithm we ensure that only peers that are "close" to us are added to the routing table, while expotentially fewer peers are stored the farther away they are. Below we have an example of a routing table for a network with a range of 0 to 2<sup>160</sup>.
+Through this algorithm we ensure that only peers that are "close" to us are added to the routing table, while exponentially fewer peers are stored the farther away they are. Below we have an example of a routing table for a network with a range of 0 to 2<sup>160</sup>.
 
 <img src="https://imgur.com/download/giOxx0u">
 
 #### Bootstrapping
 
-Let's go back to our original example. Suppose we've generated a peer ID 81, how do we actually join the network? Like all peer-to-peer networks, we need to know the IP address of at least a few node's in the network in order to join. These IP addresses can be hardcoded in the software or could be fetched from a seed server. In either case, the first thing we're going to need to do is populate our routing table. How do we do this?
+Let's go back to our original example. Suppose we've generated a peer ID 81, how do we actually join the network? Like all peer-to-peer networks, we need to know the IP address of at least a few nodes in the network in order to join. These IP addresses can be hardcoded in the software or could be fetched from a seed server. In either case, the first thing we're going to need to do is populate our routing table. How do we do this?
 
 Suppose one of the bootstrap nodes we use is Node 5. What we're going to do is connect to Node 5 and say, "Give me the 3 nodes in your routing table that are closest to Node 81". And Node 5 would respond with the IP addresses of those three nodes, let's say Nodes 20, 26, and 38. This is called a `FIND NODE` command. Again, each time we learn of a new node, we add that node to our routing table according to the algorithm we described above.
 
