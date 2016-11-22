@@ -1,7 +1,7 @@
 <h1>OpenBazaar Developer Reference</h1>
 
 ## What is OpenBazaar?
-OpenBazaar is a new way to buy and sell goods and services online. By running a program on your computer, you can connect directly to other users in the OpenBazaar network and trade with them. The network isn't controlled by a company or organisation. OpenBazaar is a decentralised peer-to-peer network, which means there are no listing fees and the marketplace is censorship-resistant.
+OpenBazaar is a new way to buy and sell goods and services online. By running a program on your computer, you can connect directly to other users in the OpenBazaar network and trade with them. The network isn't controlled by a company or organization. OpenBazaar is a decentralised peer-to-peer network, which means there are no listing fees and the marketplace is censorship-resistant.
 
 Goods and services are bought and sold on OpenBazaar using Bitcoin, a digital cryptocurrency that is decentralised and censorship-resistant. Transaction fees on the Bitcoin network are very cheap.
 
@@ -19,15 +19,15 @@ This developer reference aims to provide you with a technical understanding of h
 While the openbazaar-go API is not part of the formal protocol spec, it is also documented here along with a number of examples to help you start building apps on top of the protocol. 
 
 ## Running OpenBazaar
-The reference implementation is technically two separate applications ― a *daemon* which silently runs in the background and a user-interface which communicates with the running daemon. The *daemon* is the application which does all of the heavy lifting. Among other things, it maintains peer to peer network connections, serves a user's product listings to other peers when requested, processes incoming orders and bitcoin transactions, and fetches content from other peers when you ask it to. 
+The reference implementation is technically two separate applications ― a *daemon* which silently runs in the background and a user-interface which communicates with the running daemon. The *daemon* is the application which does all of the heavy-lifting. Among other things, it maintains peer to peer network connections, serves a user's product listings to other peers when requested, processes incoming orders and bitcoin transactions, and fetches content from other peers when you ask it to. 
 
 The user interface, or client, runs in a packaged Chromium browser (see <a href="http://electron.atom.io/">electron</a>) and communicates with the daemon via an API.
 
-A typical install of OpenBazaar bundles both the openbazaar-go daemon and user interface into a single application and lauches both at the same time. From the user's perspective it appears to be a single application.
+A typical install of OpenBazaar bundles both the openbazaar-go daemon and user interface into a single application and launches both at the same time. From the user's perspective, it appears to be a single application.
 
 The reason for this modular design is to make it easy for power users to run the openbazaar-go daemon on a separate device, perhaps a server, and keep it running 24/7 if they desire. In this configuration a user only needs the client installed on their computer and can connect it to the daemon via the internet. 
 
-If you have not already done so, we suggest you download OpenBazaar and check it out. You can download the full (bundled) application from <a href="https://openbazaar.org/download.html">openbazaar.org</a> or install the <a href="https://github.com/OpenBazaar/openbazaar-go">daemon</a> and <a href="https://github.com/OpenBazaar/openbazaar-desktop">client</a> from source from their various github repos. Instructions for installing from source can be found in each repo.  
+If you have not already done so, we suggest you download OpenBazaar and check it out. You can download the full (bundled) application from <a href="https://openbazaar.org/download.html">openbazaar.org</a> or install the <a href="https://github.com/OpenBazaar/openbazaar-go">daemon</a> and <a href="https://github.com/OpenBazaar/openbazaar-desktop">client</a> from source from their various Github repos. Instructions for installing from source can be found in each repo.  
 
 ## Contributing
 OpenBazaar is an open source project and we welcome contributions of all types. If you are a developer feel free to submit issues or pull requests to both the openbazaar-go and openbazaar-desktop repos. If you want to contribute to this documentation, it can be found <a href="https://github.com/OpenBazaar/docs">on github</a>. We welcome you to file issues and submit pull requests to help us improve this documentation.
