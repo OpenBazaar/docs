@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        <link rel="canonical" href="https://docs.openbazaar.org/overview/">
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Overview - OpenBazaar</title>
+        <link href="../css/bootstrap-custom.min.css" rel="stylesheet">
+        <link href="../css/font-awesome-4.5.0.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="../css/highlight.css">
+        <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
+        <![endif]-->
+	
+	<script src="../js/jquery-1.10.2.min.js"></script>
+        <script src="../js/bootstrap-3.0.3.min.js"></script>
+        <script src="../js/highlight.pack.js"></script> 
+    </head>
+
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+
+        <!-- Collapsed navigation -->
+        <div class="navbar-header">
+            <!-- Expander button -->
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="..">OpenBazaar</a>
+        </div>
+
+        <!-- Expanded navigation -->
+        <div class="navbar-collapse collapse">
+                <!-- Main navigation -->
+                <ul class="nav navbar-nav">
+                    <li >
+                        <a href="..">About</a>
+                    </li>
+                    <li class="active">
+                        <a href="./">Overview</a>
+                    </li>
+                    <li >
+                        <a href="../protocol/">Protocol</a>
+                    </li>
+                    <li >
+                        <a href="../api/">API</a>
+                    </li>
+                    <li >
+                        <a href="../glossary/">Glossary</a>
+                    </li>
+                    <li >
+                        <a href="../references/">References</a>
+                    </li>
+                    <li >
+                        <a href="../examples/">Examples</a>
+                    </li>
+                </ul>
+
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="#" data-toggle="modal" data-target="#mkdocs_search_modal">
+                        <i class="fa fa-search"></i> Search
+                    </a>
+                </li>
+                    <li >
+                        <a rel="next" href="..">
+                            <i class="fa fa-arrow-left"></i> Previous
+                        </a>
+                    </li>
+                    <li >
+                        <a rel="prev" href="../protocol/">
+                            Next <i class="fa fa-arrow-right"></i>
+                        </a>
+                    </li>
+                    <li>
+                        <a href="https://github.com/OpenBazaar/docs/">
+                                <i class="fa fa-github"></i>GitHub
+                        </a>
+                    </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+        <div class="container">
+                <div class="col-md-3"><div class="bs-sidebar hidden-print affix well" role="complementary">
+    <ul class="nav bs-sidenav">
+        <li class="main active"><a href="#high-level-overview">High level Overview</a></li>
+            <li><a href="#seeding-content">Seeding Content</a></li>
+            <li><a href="#contracts">Contracts</a></li>
+            <li><a href="#escrow">Escrow</a></li>
+        <li class="main "><a href="#distributed-hash-tables">Distributed Hash Tables</a></li>
+            <li><a href="#kademlia">Kademlia</a></li>
+            <li><a href="#routing-tables">Routing Tables</a></li>
+            <li><a href="#bootstrapping">Bootstrapping</a></li>
+            <li><a href="#storing-data">Storing Data</a></li>
+            <li><a href="#fetching-data">Fetching Data</a></li>
+            <li><a href="#ensuring-persistence">Ensuring Persistence</a></li>
+            <li><a href="#the-openbazaar-dht">The OpenBazaar DHT</a></li>
+            <li><a href="#seeding-files">Seeding Files</a></li>
+        <li class="main "><a href="#ipfs">IPFS</a></li>
+            <li><a href="#ipfs-objects">IPFS Objects</a></li>
+            <li><a href="#small-files">Small Files</a></li>
+            <li><a href="#large-files">Large Files</a></li>
+            <li><a href="#directories">Directories</a></li>
+            <li><a href="#versioning">Versioning</a></li>
+            <li><a href="#ipfs-in-openbazaar">IPFS in OpenBazaar</a></li>
+        <li class="main "><a href="#ipns">IPNS</a></li>
+        <li class="main "><a href="#bitcoin">Bitcoin</a></li>
+            <li><a href="#multisig-scripts">Multisig scripts</a></li>
+            <li><a href="#bitcoin-wallets">Bitcoin Wallets</a></li>
+            <li><a href="#altcoins">Altcoins</a></li>
+        <li class="main "><a href="#ricardian-contracts">Ricardian Contracts</a></li>
+    </ul>
+</div></div>
+                <div class="col-md-9" role="main">
+
+<h2 id="high-level-overview">High level Overview</h2>
+<p>OpenBazaar is the product of merging several advanced peer-to-peer or distributed technologies. Specifically, it uses a modified IPFS node (which combines ideas from Git, BitTorrent, and Kademlia), the digital currency Bitcoin, and Ricardian Contracts.</p>
+<h4 id="seeding-content">Seeding Content</h4>
+<p>When a user opens an OpenBazaar store, they <em>seed</em> their store data (the product listings, images, etc) in a way that might be familiar to anyone who has ever used BitTorrent. Potential buyers can view this store by making a direct connection to the seller and downloading the available product listings. Like BitTorrent, once a user downloads content from other peers, they start seeding that content as well. Through this process, user data quickly becomes replicated on multiple nodes in the network. The next time someone attempts to view that content, he can download it from any of the users who have it, not limited to only the originating node. For larger files users can download pieces from multiple peers simultaneously, increasing the speed of the download. </p>
+<p>This network architecture causes downloads to behave differently than the traditional client-server model. Whereas downloads in a client-server model slow down when the server comes under heavy load, downloads in OpenBazaar actually speed up in such circumstances. This is due to the sharding of files into smaller pieces and nodes sharing them as soon as they are downloaded, without waiting for the full file to download. </p>
+<p>Replicating data across multiple nodes also makes the data more resistant to censorship than the traditional client-server model. Taking a store offline isn't simply a matter of locating a server and performing a denial of service attack. In our case, the data can persist whether the originating node is online or not. </p>
+<h4 id="contracts">Contracts</h4>
+<p>If a buyer decides to make a purchase, a signed order message is sent to the vendor (the vendor can be offline at this point as there is a means to recover messages sent to you while you're offline). The buyer has the option of to pay for the order by sending bitcoins either directly to the vendor or by funding an escrow address (more on this in a minute). The orders are recorded in a cryptographic data structure known as a Ricardian Contract. Any further messages sent between the buyer and vendor, such as the order confirmation or order fulfillment messages, are recorded in the contract providing a cryptographic record of the order's history. </p>
+<h4 id="escrow">Escrow</h4>
+<p>Unlike centralized eCommerce platforms, in OpenBazaar there isn't any company that can provide arbitration services if a contract is breached. However, this ends up being a strength of the platform as it allows for the creation of a market for such arbitration services. In OpenBazaar, the term "moderator" is used to represent a user who offers escrow/arbitration services to users of the network. </p>
+<p>Vendors have the option to select one or more moderators when creating listings. The vendor's choice of moderator(s) should be considered part of the bundle of goods offered up for sale. If a buyer does not recognize any of the moderators or does not believe any of them to be trustworthy, then he should not purchase the item. </p>
+<p>When a buyer makes a moderated purchase, the funds go into a bitcoin escrow address. Unlike traditional escrow, where a single person (or group) is trusted to keep the funds safe (and not steal them!), funds locked in a bitcoin escrow address cannot be removed from escrow without the cryptographic signatures of two of the three parties involved (buyer, vendor, and moderator). This requirement prevents theft in the event an untrustworthy moderator is chosen. </p>
+<p>If the order is completed successfully the buyer and vendor can sign to release the funds from the escrow to the vendor. If either party is unsatisfied, they can open a dispute with the moderator. The moderator, in combination with either the buyer or vendor, can sign to release the funds to whichever party wins the dispute. </p>
+<h2 id="distributed-hash-tables">Distributed Hash Tables</h2>
+<p>A distributed hash table (DHT) is a distributed key/value database. Unlike a traditional database which might store data on a single computer, a DHT distributes the data across nodes in a peer-to-peer network. Consider the following set of keys and values:</p>
+<p><img src="https://imgur.com/download/YzMdSyn"></p>
+<p>If a user wants to store <code>Paul={"Computers, "Programming"}</code> in the DHT, he would connect to the peer-to-peer network and issue a <code>STORE</code> command to one or more nodes. Now anyone could retrieve that value by querying the network using the key <code>Paul</code> and they will get back <code>{"Computers, Programming"}</code>.</p>
+<p>The trick here is making this DHT scalable so that it can handle large amounts of data. Having every node store all the data would scale very poorly. Therefore DHTs are designed to split the data set into shards and have only a subset of nodes store a shard. Once you do this the challenge then becomes figuring out which specific nodes to issue the <code>STORE</code> command to so that someone querying the network for a key can figure out which nodes they have to query to retrieve the data. </p>
+<p>There are different ways to accomplish this task and a number of different designs have been proposed and implemented. In OpenBazaar, the specific DHT design used is <a href="https://pdos.csail.mit.edu/~petar/papers/maymounkov-kademlia-lncs.pdf">Kademlia</a>. </p>
+<h4 id="kademlia">Kademlia</h4>
+<p>Prior to joining a Kademlia DHT each node creates a unique identifier, or peer ID. Typically this can just be a long random number, but in OpenBazaar it's a SHA256 hash of an RSA public key. This identifier also serves as an OpenBazaar user ID and corresponding public key allows the user to sign messages which can be validated against the ID.</p>
+<p>The following is an example of a typical network topology. In this example, we've substituted the long SHA256 IDs for small integer IDs just to make it easier for us to visualize and reason about. Notice how the network is linear, with the smallest peer ID on the left and the largest on the right. In the actual OpenBazaar network, this range of possible IDs runs from 0 (on the left) to 2<sup>256</sup> (on the right).</p>
+<p><img src="https://imgur.com/download/CXWjd2o"></p>
+<h4 id="routing-tables">Routing Tables</h4>
+<p>Each node maintains a <em>routing</em> <em>table</em> which contains a list of peers (ID and IP address) that it knows about. We again run into scalability issues if each node attempts store <em>all</em> nodes in its routing table. Therefore each node only stores a subset of the total nodes in its routing table giving it only a <em>partial</em> view of the network. </p>
+<p>However, it's not sufficient to choose which nodes to store or not at random. Instead, each node makes a decision whether to add a node to its routing table based on an algorithm. The goal of this algorithm is to ensure that the node has a fairly complete view of the other nodes that are "close" to it and a less complete, or partial, view of the nodes that "further" away.</p>
+<p>What do we mean by "close"? We're not talking about physical distance (such as Node 14 is in Chicago and Node 38 is in Hong Kong). Instead, we are going to define <em>distance</em> in terms of each node's peer ID. One way to do this could be to use absolute value. For example, the "distance" between Node 14 and Node 38 would be 24 (|14 - 38| = 24). However, in Kademlia we use the xor(⊕) operation to determine distance. For example, the "distance" between Node 14 and Node 38, when measured by the xor metric, is 40 (14 ⊕ 38 = 40 and also 38 ⊕ 14 = 40).</p>
+<p>Now that we have an idea what we mean by "close", we can proceed to define our algorithm. The routing table starts out containing only a single <em>bucket</em> which can hold at most <em>K</em> peers. The <em>K</em> parameter is selected as a tradeoff between efficiency and data redundancy. Typically it's set to 20 as research suggest that number is close to optimal. Every bucket has a <em>range</em> of peer IDs that it covers. For the sake of this example, let's suppose the range of our peer IDs is 0 to 99 (again a real network would be 0 to 2<sup>256</sup>).</p>
+<p>Each time a node learns of a new peer (this tends to happen automatically peers will contact you periodically looking for data) it adds that peer to the bucket. If the bucket is full (meaning it already has 20 peers in it), the algorithm splits the bucket into two separate buckets as follows:</p>
+<p><img src="https://imgur.com/download/fnerbpB"></p>
+<p>And the new peer would be added to the bucket whose range it ID falls within. For example, if we were adding peer 19, it would be added to bucket 0. Now that we have more than one bucket, the decision about what to do when a bucket gets full is slightly different. If the ID of the peer falls within a bucket whose range <em>our</em> node's ID also falls (we could call this our <em>neighborhood</em>), then we split the bucket just like in our previous example. If the bucket's range does not encompass <em>our</em> node ID, then we don't add the peer to our routing table. </p>
+<p>As an example, suppose our Node ID is 29. We fall within the range of bucket 0. Further, suppose we are considering whether we should add Node 74 to our routing table. Node 74 falls within bucket 1 but bucket 1 is full. In this case, we do <em>not</em> add Node 74 since it falls in a full bucket that is different from the bucket our Node ID would fall within. </p>
+<p>If we were to consider adding node 42 to bucket 0 but bucket 0 is full, we would <em>split</em> bucket 0 into two separate buckets because that is the bucket whose range our own ID falls within. </p>
+<p>Through this algorithm we ensure that only peers that are "close" to us are added to the routing table, while exponentially fewer peers are stored the farther away they are. Below we have an example of a routing table for a network with a range of 0 to 2<sup>160</sup>.</p>
+<p><img src="https://imgur.com/download/giOxx0u"></p>
+<h4 id="bootstrapping">Bootstrapping</h4>
+<p>Let's go back to our original example. Suppose we've generated a peer ID 81, how do we actually join the network? Like all peer-to-peer networks, we need to know the IP address of at least a few node's in the network in order to join. These IP addresses can be hard-coded in the software or could be fetched from a seed server. In either case, the first thing we're going to need to do is populate our routing table. How do we do this?</p>
+<p>Suppose one of the bootstrap nodes we use is Node 5. What we're going to do is connect to Node 5 and say, "Give me the 3 nodes in your routing table that are closest to Node 81". And Node 5 would respond with the IP addresses of those three nodes, let's say Nodes 20, 26, and 38. This is called a <code>FIND NODE</code> command. Again, each time we learn of a new node, we add that node to our routing table according to the algorithm we described above.</p>
+<p>Now we can go to Nodes 20, 26, and 38 and issue <em>them</em> <code>FIND NODE</code> commands and they will, presumably, respond with nodes that are closer still to ID 81. We can keep making these iterative <code>FIND NODE</code> queries (sometimes called a <em>crawl</em>) until the nodes we get back are no closer to 81 than the closest node in our routing table. At this point, we can stop the crawl and have successfully bootstrapped our routing table. </p>
+<p><img src="https://imgur.com/download/BOgpLgM"></p>
+<h4 id="storing-data">Storing Data</h4>
+<p>Suppose we want to store a key/value pair in the network. How do we do it? First, we hash the key with SHA256. Continuing from our example above, if the key we want to insert is "Paul" then we do:</p>
+<pre><code>key = SHA256(&quot;Paul&quot;) // 818b5cc5f21d3e6e4e6071c06294528d44595022218446d8b79304d2b766327a
+</code></pre>
+
+<p>Our goal is to find the <em>K</em> closest nodes (against K is usually 20) to the <code>key</code> and give them both the key and value to store by issuing a <code>STORE</code> command.</p>
+<p>How do we find the 20 closest nodes to the key? By doing the same type of iterative <code>FIND NODE</code> crawl we did above. The only difference this time is we select the initial 4 nodes to query from our routing table (the 4 closest nodes to the key) instead of using the list of bootstrap peers. </p>
+<p>Upon completion of the crawl we should we should have the IP addresses of the 20 closest nodes and can issue <code>STORE(key, value)</code> or in our example, <code>STORE(818b5cc5f21d3e6e4e6071c06294528d44595022218446d8b79304d2b766327a, {"Computers, "Programming"})</code>.</p>
+<h4 id="fetching-data">Fetching Data</h4>
+<p>It should be fairly easy at this point to see how we will get the value back out of the DHT. If someone knows a key, "Paul" for example. Just like before, they can calculate:</p>
+<pre><code>key = SHA256(&quot;Paul&quot;) // 818b5cc5f21d3e6e4e6071c06294528d44595022218446d8b79304d2b766327a
+</code></pre>
+
+<p>However, instead of a <code>FIND NODE</code> crawl, they will do a <code>FIND VALUE</code> crawl. This type of command behaves just like a <code>FIND NODE</code> command except we give the remote peer the key we are looking for. If they have the corresponding value, they will return it to us. If not, they return the 3 closest peers just like in a <code>FIND NODE</code> command. By the end of the crawl, we should have the value if it existed in the DHT.</p>
+<h4 id="ensuring-persistence">Ensuring Persistence</h4>
+<p>As we already mentioned, <code>STORE</code> commands are issued to <em>K</em> nodes instead of just one. This is to ensure that the data is replicated on more than one node and to guard against losing data when nodes go offline. </p>
+<p>In addition, nodes need to be programmed to proactively share values with new nodes as they join the network. When a node learns of a new node in its neighborhood, it should share any values whose keys are close enough to the new node that it should be storing them. </p>
+<p>In this way, a DHT can be said to be "self-healing" in that the network can withstand fairly high node churn and still keep values alive. </p>
+<h4 id="the-openbazaar-dht">The OpenBazaar DHT</h4>
+<p>While the value one stores in a DHT could be arbitrary data, such as images, product listings, or chat messages, in OpenBazaar we only store <em>pointers</em> to this data in the DHT. A pointer is not the data itself, but rather a list of IP address of nodes that have the value. In other words, a pointer <em>points</em> to the nodes that have the value. For example:</p>
+<pre><code>value = [
+    {
+        &quot;peerID&quot;: QmNedYJ6WmLhacAL2ozxb4k33Gxd9wmKB7HyoxZCwXid1e,
+        &quot;addresses&quot;: [
+            &quot;/ip4/103.2.117.6/tcp/4001&quot;,
+            &quot;/ip4/127.0.0.1/tcp/4001&quot;,
+            &quot;/ip6/2001:0000:3238:DFE1:63:0000:0000:FEFB/tcp/4001&quot;,
+            &quot;/ip6/::1/tcp/4001&quot;
+        ]
+    },
+    {
+        &quot;peerID&quot;: QmamudHQGtztShX7Nc9HcczehdpGGWpFBWu2JvKWcpELxr,
+        &quot;addresses&quot;: [
+            &quot;/ip4/202.55.147.10/tcp/4001&quot;,
+            &quot;/ip4/127.0.0.1/tcp/4001&quot;,
+            &quot;/ip6/3ffe:1900:4545:3:200:f8ff:fe21:67cf/tcp/4001&quot;,
+            &quot;/ip6/::1/tcp/4001&quot;
+        ]
+    },
+    {
+        &quot;peerID&quot;: QmbyUYWZEBRFw9uxVThS4FYMwkdhWfGAsYwppBKTF6L968,
+        &quot;addresses&quot;: [
+            &quot;/ip4/192.231.203.130/tcp/4001&quot;,
+            &quot;/ip4/127.0.0.1/tcp/4001&quot;
+        ]
+    }
+]
+</code></pre>
+
+<p>There are several reasons why it is preferable to store pointers as values rather than the full data:</p>
+<ul>
+<li>
+<p>Far more people can be storing the actual data. DHT data is only stored by <em>K</em> nodes that place a hard limit on the amount of data replication we can have. If we only store pointers in the DHT, there is no limit to the number of nodes who can store the data.</p>
+</li>
+<li>
+<p>Because each node has to regularly share its data with other nodes (such as when new nodes join the network), the DHT could end up using enormous amounts of bandwidth if it had to share, say images or videos with such regularity. It's much less of a burden for a node to share tiny pointers.</p>
+</li>
+<li>
+<p>No node in the DHT is forced to store content which they do not wish to store. For example, if we allowed storage of arbitrary data, you could end up storing illicit or illegal content against your will, which could get <em>you</em> in trouble just for running the software.</p>
+</li>
+</ul>
+<p>Since OpenBazaar is only storing <em>pointers</em> in the DHT we generally refer to the DHT as our routing layer since it's used to route download requests to the appropriate nodes.</p>
+<h4 id="seeding-files">Seeding Files</h4>
+<p>In OpenBazaar one can "seed" a file by inserting the hash of the file into the DHT as the key and a pointer to one's node (peerID and IP addresses) as the value. The nodes that receive the <code>STORE</code> command will <em>append</em> the pointer to the list of pointers it is storing for that key. Anyone else can download the file if they know the hash by querying the DHT for the hash then using the returned pointers to connect to one or more of the peers seeding the file to download it. Seeders periodically re-publish their pointers to ensure persistence. </p>
+<h2 id="ipfs">IPFS</h2>
+<p><a href="https://ipfs.io/">IPFS</a> stands for Interplanetary File System. It is a hypermedia distribution protocol which forms the core the OpenBazaar network. It uses a Kademlia DHT, exactly as described above, to route downloaders to those seeding files. What makes it unique is how IPFS serializes the data to create a cryptographically authenticated data structure known as a <em>Merkle</em> <em>DAG</em>. </p>
+<p>[Note: much of this description of IPFS is taken verbatim from <a href="http://whatdoesthequantsay.com/2015/09/13/ipfs-introduction-by-example">Christian Lundkvist</a> since he did such a great job]</p>
+<h4 id="ipfs-objects">IPFS Objects</h4>
+<p>Before data is seeded it is wrapped in an IPFS object. Objects have two fields:</p>
+<ul>
+<li><code>Data</code> - a blob of unstructured binary data of size &lt; 256 kB.</li>
+<li><code>Links</code> - an array of Link structures. These are links to other IPFS objects.</li>
+</ul>
+<p>A Link structure has three data fields:</p>
+<ul>
+<li><code>Name</code> - the name of the Link.</li>
+<li><code>Hash</code> - the hash of the linked IPFS object.</li>
+<li><code>Size</code> - the cumulative size of the linked IPFS object, including following its links.</li>
+</ul>
+<p>IPFS objects are referred to by their hash, which is encoded in a Base58 multihash format. For example, <code>QmarHSr9aSNaPSR6G9KFPbuLV9aEqJfTk1y9B8pdwqK4Rq</code>. </p>
+<p>So an IPFS object may look something like this:</p>
+<pre><code>{
+  &quot;Links&quot;: [
+    {
+      &quot;Name&quot;: &quot;AnotherName&quot;,
+      &quot;Hash&quot;: &quot;QmVtYjNij3KeyGmcgg7yVXWskLaBtov3UYL9pgcGK3MCWu&quot;,
+      &quot;Size&quot;: 18
+    },
+    {
+      &quot;Name&quot;: &quot;SomeName&quot;,
+      &quot;Hash&quot;: &quot;QmbUSy8HCn8J4TMDRRdxCbK2uCCtkQyZtY6XYv3y7kLgDC&quot;,
+      &quot;Size&quot;: 58
+    }
+  ],
+  &quot;Data&quot;: &quot;Hello World!&quot;
+} 
+</code></pre>
+
+<p>It should first be noted that since IPFS objects are referred to by their hash, this data structure is cryptographically authenticated. If I fetch an IPFS object from the DHT by using its hash, I can verify that the data the peers returned to me has not been tampered with. The same goes for each the "links" inside the object. Once I download the parent IPFS object, I can proceed to fetch each of the links from the DHT by using their hash and validate them as well. Technically, since each link also contains a <code>Name</code>, our software can actual be told to fetch linked objects by their <code>Name</code> since it can always look up the corresponding <code>Hash</code> in the parent object. </p>
+<p>When we can download a file from anyone on the network by only knowing its hash, we call this <em>content</em> <em>addressing</em>. This is different from traditional HTTP requests that use <em>location</em> <em>addressing</em> ― fetching content from a specific location (such as a server).</p>
+<p>Let's create a visualization of the above IPFS object:</p>
+<p><img src="https://imgur.com/download/56T4pfc"></p>
+<h4 id="small-files">Small Files</h4>
+<p>Small files (&lt;256 kB) are represented as an IPFS object with the file data in the <code>Data</code> field and no <code>Links</code>. For example, a text file that says "Hello World" would look like this:</p>
+<pre><code>{
+  &quot;Links&quot;: [],
+  &quot;Data&quot;: &quot;\u0008\u0002\u0012\rHello World!\n\u0018\r&quot;
+}
+</code></pre>
+
+<p>And in a more visual form:
+<img src="https://imgur.com/download/m2VwTzR"></p>
+<h4 id="large-files">Large Files</h4>
+<p>Files &gt;256 kB in size are split into chunks no larger than 256 kB and these chunks are linked to by the parent IPFS object (with filenames omitted). For example:</p>
+<pre><code>{
+  &quot;Links&quot;: [
+    {
+      &quot;Name&quot;: &quot;&quot;,
+      &quot;Hash&quot;: &quot;QmYSK2JyM3RyDyB52caZCTKFR3HKniEcMnNJYdk8DQ6KKB&quot;,
+      &quot;Size&quot;: 262158
+    },
+    {
+      &quot;Name&quot;: &quot;&quot;,
+      &quot;Hash&quot;: &quot;QmQeUqdjFmaxuJewStqCLUoKrR9khqb4Edw9TfRQQdfWz3&quot;,
+      &quot;Size&quot;: 262158
+    },
+    {
+      &quot;Name&quot;: &quot;&quot;,
+      &quot;Hash&quot;: &quot;Qma98bk1hjiRZDTmYmfiUXDj8hXXt7uGA5roU5mfUb3sVG&quot;,
+      &quot;Size&quot;: 178947
+    }
+  ],
+  &quot;Data&quot;: &quot;\u0008\u0002\u0018��* ��\u0010 ��\u0010 ��\n&quot;
+}
+</code></pre>
+
+<p><img src="https://imgur.com/download/jBkCMdB"></p>
+<p>When downloading large files, we don't have to download all links from the same node. Instead, we can download the links concurrently, from separate nodes, and dramatically increase the download speed. </p>
+<h4 id="directories">Directories</h4>
+<p>It's not hard to see how IPFS objects could be used to represent a file directory. Consider the following directory structure:</p>
+<pre><code>.
+|--test_dir:
+|  |--my_dir:
+|  |  |--my_file.txt
+|  |  `--testing.txt
+|  |--bigfile.js
+|  `--hello.txt
+</code></pre>
+
+<p>The files hello.txt and my_file.txt both contain the string Hello World!\n. The file testing.txt contains the string Testing 123\n.</p>
+<p>When representing this directory structure as an IPFS object it looks like this:
+<img src="https://imgur.com/download/0PM5xk9"></p>
+<h4 id="versioning">Versioning</h4>
+<p>IPFS can represent the data structures used by Git to allow for versioned file systems. A <code>Commit</code> object has one or more links with names parent0, parent1 etc pointing to previous commits, and one link with name object (this is called tree in Git) that points to the file system structure referenced by that commit.</p>
+<p>We give as an example our previous file system directory structure, along with two commits: The first commit is the original structure, and in the second commit we’ve updated the file my_file.txt to say Another World! instead of the original Hello World!.</p>
+<p><img src="https://imgur.com/download/9Nbhvaw"></p>
+<h4 id="ipfs-in-openbazaar">IPFS in OpenBazaar</h4>
+<p>In OpenBazaar we store all user data ― profiles, listings, product images, reviews, channels, etc ― are stored in a directory referred to as the user's <code>root</code> directory. All of the user's files are stored either in the <code>root</code> directory or any of its subdirectories. This <code>root</code> directory is seeded on the network along with all the directories files and subdirectories. By seeding data in this manner, we only need to know the hash of a user's <code>root</code> directory in order to download and view all the content that makes up the user's page or store. </p>
+<p>For example, an API call of <code>ipfs/QmfHTiFpqLDAVj29Nf7LrfUFfz4envqArY4Gv7CvbyDcPt</code> allows us to look inside a root directory:</p>
+<p><img src="https://imgur.com/download/xicvjy1"></p>
+<p>And if we wanted to look inside the <code>listings</code> subdirectory we could call: <code>ipfs/QmfHTiFpqLDAVj29Nf7LrfUFfz4envqArY4Gv7CvbyDcPt/listings/</code></p>
+<p><img src="https://imgur.com/download/VXmDvxe"></p>
+<p>Note that in the above API call, we only needed to use the <code>Name</code> (/listing) and not the hash of the listing directory since the software will look up the <code>Hash</code> from the <code>Name</code>.</p>
+<p>And finally we could fetch the data for the <code>cool-t-shrit</code> listing with the following call: <code>ipfs/QmfHTiFpqLDAVj29Nf7LrfUFfz4envqArY4Gv7CvbyDcPt/listings/cool-t-shirt.json</code></p>
+<h2 id="ipns">IPNS</h2>
+<p>Thus far we've seen how we can fetch a user's content given the hash of his <code>root</code> directory, but we have a bit of a problem. The <code>Hash</code> of the <code>root</code> directory changes every time we change the existing files or add new data. If we gave out our <code>root</code> hash to people so they can view our store, the hash would be made obsolete the next time up updated any data in our root directory (such as changing the price of a listing). </p>
+<p>IPNS stands for Interplanetary Naming System. It is a self-authenticating namespace built on top of IPFS. What we can do with IPNS is cryptographically map the hash of our <code>root</code> directory to our <code>peerID</code>. This is accomplished by signing the hash of the <code>root</code> directory with our identity key (remember the RSA key we mentioned earlier) and insert this signed hash into the DHT using our peerID as the key. </p>
+<p>So inside the DHT we have a record that looks like:</p>
+<pre><code>peerID = signed(rootHash)
+</code></pre>
+
+<p>And since our peerId is the SHA256 hash of our RSA public key, anyone can fetch the latest copy of our <code>root</code> hash from the DHT and validate the signature against our public key, which itself should hash to our <code>peerID</code>. </p>
+<p>In this manner, one only needs to know our <code>peerID</code> to download an authenticated copy of all of our store content. </p>
+<p>Using the IPNS protocol the above API call which fetched the listing could be rewritten as <code>/ipns/QmdHkAQeKJobghWES9exVUaqXCeMw8katQitnXDKWuKi1F/listings/coot-t-shirt.json</code> where <code>QmfHTiFpqLDAVj29Nf7LrfUFfz4envqArY4Gv7CvbyDcPt</code> is our <code>peerID</code>.</p>
+<p>And by using other naming protocols such as <a href="https://blockstack.org/">Blockstack</a> we can cryptographically map a user's <code>peerID</code>, which is a rather ugly looking series of numbers and letters, to a more human readable username such as <code>@UrbanArt</code>. Thus one only needs to know the human readable username to download user content in a cryptographically secure manner. </p>
+<h2 id="bitcoin">Bitcoin</h2>
+<p>The digital currency Bitcoin is used in OpenBazaar as the primary means of payment. The reason for this choice is two-fold. First, it aligns well with the goals of the project to be a decentralized, censorship-resistant eCommerce platform without a middle man. Bitcoin is also decentralized, censorship-resistant, and has no middlemen. It also has very low transaction fees compared to other forms of payment. Presently a bitcoin transaction can be made for about 10¢ USD compared to about 30¢ <em>plus</em> 2.9% of the total for PayPal. Credit cards similarly take a percentage of the transaction. And, of course, those methods of payment can be tracked and censored if need be. </p>
+<p>We should supplement the previous statement on fees slightly. If a user wishes to convert bitcoins he earned from selling on OpenBazaar to fiat currency, he likely will incur some additional fees for the currency conversion. However, presently the company <a href="https://www.coinbase.com/">Coinbase</a> allows vendors to convert up to $1 million USD for free and at a 1% fee for everything over $1 million. Which is to say, even when factoring in currency conversion, Bitcoin can still be far cheaper than the alternatives (and of course there are zero fees to sell on OpenBazaar). </p>
+<p>The second reason Bitcoin is a good choice is it allows us to build the trustless escrow system we mentioned earlier. All other forms of payment require you to use the payment provider (such as PayPal) for arbitration if you have a dispute. With Bitcoin, we can not only create a free market for escrow/arbitration services, but we can do so in such a way as to remove the risk that the escrow agent will steal (or lose) the funds. </p>
+<h4 id="multisig-scripts">Multisig scripts</h4>
+<p>If you like to learn more about how Bitcoin works we'd suggest reading the <a href="https://bitcoin.org/en/developer-guide">Bitcoin Developer Guide</a>. However, we can provide a quick overview of how the escrow system works. </p>
+<p>In Bitcoin, the coins are not technically sent to a bitcoin "address" or account. Instead, they are sent to a tiny computer program (or script). This script sets the terms upon which the coins are allowed to be transferred. A person seeking to spend bitcoins provides the inputs to the script function and the bitcoin software will execute it. If the script returns <code>True</code> (and all other transaction checks pass) then the bitcoins may be transferred to another script. </p>
+<p>The specific script we use looks something like this:</p>
+<pre><code>OP_HASH160 &lt;Hash160(redeemScript)&gt; OP_EQUAL
+</code></pre>
+
+<p>Technically this script means "anyone who knows a certain password can spend these coins", however Bitcoin underwent a soft-fork upgrade several years ago which gives this script a "special" meaning. In essence, when the interpreter sees this script it interprets it, not as a password script, but as something called "pay to script hash" or P2SH.</p>
+<p>Coins sent to this script can be spent by providing a <code>redeem script</code> whose hash matches the hash in the output script and then by fulfilling the terms of the <code>redeem script</code>.</p>
+<p>In OpenBazaar we use a redeem script that looks like:</p>
+<pre><code>OP_2 &lt;buyer_pubkey&gt; &lt;vendor_pubkey&gt; &lt;moderator_pubkey&gt; OP_3 OP_CHECKMULTISIG
+</code></pre>
+
+<p>This script says the funds may be transferred if signatures matching two of the three listed public keys are provided.</p>
+<p>The scripting language is flexible enough that we could extend it with additional features in the future. For example, suppose we want to add a timeout to the escrow. That is, if the buyer doesn't release the fund or file a dispute within 60 days, the funds will then be transferred to the vendor. Essentially this can save the vendor some headaches trying to collect his payment. </p>
+<p>This redeem script would look like:</p>
+<pre><code>OP_IF
+    OP_2 &lt;buyer_pubkey&gt; &lt;vendor_pubkey&gt; &lt;moderator_pubkey&gt; OP_3 OP_CHECKMULTISIG
+OP_ELSE
+   &quot;60d&quot; OP_CHECKSEQUENCEVERIFY OP_DROP
+    &lt;vendor_pubkey&gt; OP_CHECKSIG
+OP_ENDIF
+</code></pre>
+
+<h4 id="bitcoin-wallets">Bitcoin Wallets</h4>
+<p>The OpenBazaar protocol specification has nothing to say about which Bitcoin wallet should be used with the protocol. However, to improve the user experience, the reference implementation comes bundled with a built-in wallet. The default wallet implements something call Simplified Payment Verification (SPV) which provides strong cryptographic validation of incoming Bitcoin transactions while using very little of the computer's resources. The drawback to SPV mode is it leaks enough private data to allow potential attackers to figure out which transactions came from the wallet. Although that information by itself doesn't say who the <em>owner</em> of the wallet is (other investigative techniques might provide that information, however). </p>
+<p>For this reason, there is a setting in the openbazaar-go config file that allows a user to use bitcoind (a full Bitcoin implementation) with openbazaar-go. Bitcoind is a very heavyweight software and is typically only used by power users, but it does a much better job than SPV at providing transactional privacy. </p>
+<h4 id="altcoins">Altcoins</h4>
+<p>There isn't anything Bitcoin-specific about Kademlia, IPFS, or Ricardian Contracts. In theory, the OpenBazaar protocol could work with any digital currency, not just Bitcoin. In practice, there are certain features a digital currency must have to be used with the OpenBazaar protocol that not every altcoin has. For example, an altcoin must support multisignature transactions else the escrow system will not work. The protocol also makes some assumptions about the existence of payment addresses and transaction inputs and outputs. These assumptions could probably be abstracted away in future versions of the protocol, but it stands to reason that altcoins that are a close derivative to Bitcoin would work better with the OpenBazaar protocol than coins that are a dramatic departure from it. </p>
+<h2 id="ricardian-contracts">Ricardian Contracts</h2>
+<p>A traditional contract is a written or spoken agreement among two (or more) parties to exchange something of value. Every time we transact for anything we are entering into a legally binding contract, even if they are only verbal. When you purchase things on the internet, you are likewise entering into a legally binding contract. However, contracts are sometimes poorly written, ambiguous or difficult to interpret. They may be subject to <em>frog-boiling</em> where a strong party attempts to change the contract over time in his favor or even to one party denying they agreed on the contract. These issues can make it difficult for arbitrators to determine who is correct in a dispute. </p>
+<p>A Ricardian Contract is a type of cryptographic contract that attempts to solve these problems. Ricardian contracts a both human readable and machine parsable and provides an irrefutable record of what both parties agree to. It's not clear whether a Ricardian Contract would be treated as a valid contract in court (it would likely vary by jurisdiction anyway) but it doesn't matter as the terms of the contract can be enforced programmatically by software. </p>
+<p>In OpenBazaar the Ricardian Contract looks as follows:</p>
+<pre><code class="protobuf">syntax = &quot;proto3&quot;;
+
+message RicardianContract {
+    repeated Listing vendorListings                    = 1;
+    Order buyerOrder                                   = 2;
+    OrderConfirmation vendorOrderConfirmation          = 3;
+    repeated OrderFulfillment vendorOrderFulfillment   = 4;
+    OrderCompletion buyerOrderCompletion               = 5;
+    Dispute dispute                                    = 6;
+    DisputeResolution disputeResolution                = 7;
+    Refund refund                                      = 8;
+    repeated Signature signatures                      = 9;
+}
+</code></pre>
+
+<p>Each section of the contract is signed by the appropriate party's identity key. For example, the vendor signs the <code>Listing</code> object while the buyer signs the <code>Order</code> object. As the order progresses through different states, new objects are appended to the contract along with their signatures. When a dispute is filed with a moderator, the contract is sent to the moderator, programmatically validated, and then marshaled to JSON for the moderator to read. The contract contains all the information a moderator needs to make a decision and doesn't provide any wiggle room for the buyer and vendor to try to manipulate the outcome. </p>
+<p>The Ricardian Contract structure is very extensible and allows virtually an unlimited number of contract types to be created.</p></div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="http://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>var base_url = '..';</script>
+        <script data-main="../mkdocs/js/search.js" src="../mkdocs/js/require.js"></script>
+        <script src="../js/base.js"></script><div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="Search Modal" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h4 class="modal-title" id="exampleModalLabel">Search</h4>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form role="form">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search..." id="mkdocs-search-query">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

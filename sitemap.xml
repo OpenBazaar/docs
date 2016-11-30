@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+
+    
+    <url>
+     <loc>https://docs.openbazaar.org/</loc>
+     <lastmod>2016-11-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://docs.openbazaar.org/overview/</loc>
+     <lastmod>2016-11-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://docs.openbazaar.org/protocol/</loc>
+     <lastmod>2016-11-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://docs.openbazaar.org/api/</loc>
+     <lastmod>2016-11-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://docs.openbazaar.org/glossary/</loc>
+     <lastmod>2016-11-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://docs.openbazaar.org/references/</loc>
+     <lastmod>2016-11-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+    
+    <url>
+     <loc>https://docs.openbazaar.org/examples/</loc>
+     <lastmod>2016-11-30</lastmod>
+     <changefreq>daily</changefreq>
+    </url>
+    
+
+</urlset>
