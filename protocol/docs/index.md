@@ -3,7 +3,7 @@
 ## What is OpenBazaar?
 OpenBazaar is a new way to buy and sell goods and services online. By running a program on your computer, you can connect directly to other users in the OpenBazaar network and trade with them. The network isn't controlled by a company or organization. OpenBazaar is a decentralised peer-to-peer network, which means there are no listing fees and the marketplace is censorship-resistant.
 
-Goods and services are bought and sold on OpenBazaar using Bitcoin, a digital cryptocurrency that is decentralised and censorship-resistant. Transaction fees on the Bitcoin network are very cheap.
+Goods and services are bought and sold on OpenBazaar using Bitcoin, a digital cryptocurrency that is decentralised and censorship-resistant.
 
 **Bitcoin and OpenBazaar together make online commerce cheaper and more free than ever before.**
 
