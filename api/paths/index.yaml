@@ -2,6 +2,8 @@
     $ref: ./ipfs.yaml
   /ipns/{peerId}/:
     $ref: ./ipns.yaml
+  /ob/opendispute:
+    $ref: ./opendispute.yaml
   /ob/follow:
     post:
       tags:

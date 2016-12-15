@@ -14,6 +14,8 @@
   description: API calls for listings
 - name: Orders
   description: API calls for ordering
+- name: Dispute Resolution
+  description: API calls for managing disputes
 - name: Peers
   description: RPC calls finding other peers
 - name: Wallet
