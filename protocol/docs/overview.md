@@ -276,7 +276,7 @@ And finally we could fetch the data for the `cool-t-shrit` listing with the foll
 
 ## IPNS
 
-Thus far we've seen how we can fetch a user's content given the hash of his `root` directory, but we have a bit of a problem. The `Hash` of the `root` directory changes every time we change the existing files or add new data. If we gave out our `root` hash to people so they can view our store, the hash would be made obsolete the next time up updated any data in our root directory (such as changing the price of a listing). 
+Thus far we've seen how we can fetch a user's content given the hash of his `root` directory, but we have a bit of a problem. The `Hash` of the `root` directory changes every time we change the existing files or add new data. If we gave out our `root` hash to people so they can view our store, the hash would be made obsolete the next time we updated any data in our root directory (such as changing the price of a listing). 
 
 IPNS stands for Interplanetary Naming System. It is a self-authenticating namespace built on top of IPFS. What we can do with IPNS is cryptographically map the hash of our `root` directory to our `peerID`. This is accomplished by signing the hash of the `root` directory with our identity key (remember the RSA key we mentioned earlier) and insert this signed hash into the DHT using our peerID as the key. 
 
