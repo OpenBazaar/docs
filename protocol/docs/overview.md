@@ -286,7 +286,7 @@ So inside the DHT we have a record that looks like:
 peerID = signed(rootHash)
 ```
 
-And since our peerId is the SHA256 hash of our RSA public key, anyone can fetch the latest copy of our `root` hash from the DHT and validate the signature against our public key, which itself should hash to our `peerID`. 
+And since our peerId is the SHA256 hash of our Ed25519 public key, anyone can fetch the latest copy of our `root` hash from the DHT and validate the signature against our public key, which itself should hash to our `peerID`. 
 
 In this manner, one only needs to know our `peerID` to download an authenticated copy of all of our store content. 
 
