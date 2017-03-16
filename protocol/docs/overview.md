@@ -82,7 +82,7 @@ key = SHA256("Paul") // 818b5cc5f21d3e6e4e6071c06294528d44595022218446d8b79304d2
 
 Our goal is to find the *K* closest nodes (against K is usually 20) to the `key` and give them both the key and value to store by issuing a `STORE` command.
 
-How do we find the 20 closest nodes to the key? By doing the same type of iterative `FIND NODE` crawl we did above. The only difference this time is we select the initial 4 nodes to query from our routing table (the 4 closest nodes to the key) instead of using the list of bootstrap peers. 
+How do we find the 20 closest nodes to the key? By doing the same type of iterative `FIND NODE` crawl we did above. The only difference this time is we select the initial 3 nodes to query from our routing table (the 3 closest nodes to the key) instead of using the list of bootstrap peers. 
 
 Upon completion of the crawl we should we should have the IP addresses of the 20 closest nodes and can issue `STORE(key, value)` or in our example, `STORE(818b5cc5f21d3e6e4e6071c06294528d44595022218446d8b79304d2b766327a, {"Computers, "Programming"})`.
 
