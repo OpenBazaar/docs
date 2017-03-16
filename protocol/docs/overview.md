@@ -33,7 +33,7 @@ There are different ways to accomplish this task and a number of different desig
 
 #### Kademlia
 
-Prior to joining a Kademlia DHT each node creates a unique identifier, or peer ID. Typically this can just be a long random number, but in OpenBazaar it's a SHA256 hash of an RSA public key. This identifier also serves as an OpenBazaar user ID and corresponding public key allows the user to sign messages which can be validated against the ID.
+Prior to joining a Kademlia DHT each node creates a unique identifier, or peer ID. Typically this can just be a long random number, but in OpenBazaar it's a SHA256 hash of an Ed25519 public key. This identifier also serves as an OpenBazaar user ID and corresponding public key allows the user to sign messages which can be validated against the ID.
 
 The following is an example of a typical network topology. In this example, we've substituted the long SHA256 IDs for small integer IDs just to make it easier for us to visualize. Notice how the network is linear, with the smallest peer ID on the left and the largest on the right. In the actual OpenBazaar network, this range of possible IDs runs from 0 (on the left) to 2<sup>256</sup> (on the right).
 
