@@ -1,5 +1,6 @@
 site_name: OpenBazaar
 site_url: https://docs.openbazaar.org
+site_favicon: 'images/favicon.png'
 repo_url: https://github.com/OpenBazaar/docs/
 pages:
 - About: index.md
@@ -9,3 +10,13 @@ pages:
 - Glossary: glossary.md
 - References: references.md
 - Examples: examples.md 
+theme: 'material'
+extra:
+  palette:
+    primary: 'blue grey'
+  logo: 'images/icon-large.png'
+  social:
+    - type: 'github'
+      link: 'https://github.com/OpenBazaar'
+    - type: 'twitter'
+      link: 'https://twitter.com/OpenBazaar'
