@@ -5,7 +5,25 @@ repo_url: https://github.com/OpenBazaar/docs/
 pages:
 - About: index.md
 - Overview: overview.md
-- Protocol: protocol.md
+- Protocol:
+  - 'Overview': 'protocol/overview.md'
+  - 'Primitives': 'protocol/primitives.md'
+  - 'Identity': 'protocol/identity.md'
+  - 'Secio': 'protocol/secio.md'
+  - 'Directory Structure': 'protocol/directory_structure.md'
+  - 'IPLD': 'protocol/ipld.md'
+  - 'DHT': 'protocol/dht.md'
+  - 'Bitswap': 'protocol/bitswap.md'
+  - 'Naming': 'protocol/naming.md'
+  - 'Trade Flow': 'protocol/trade_flow.md'
+  - 'Ricardian Contracts': 'protocol/ricardian_contracts.md'
+  - 'P2P Network': 'protocol/p2p_network.md'
+  - 'Pointers': 'protocol/pointers.md'
+  - 'Offline Messaging': 'protocol/offline_messaging.md'
+  - 'Exchange Rates': 'protocol/exchange_rates.md'
+  - 'Dispute Resolution': 'protocol/dispute_resolution.md'
+  - 'Ratings & Reviews': 'protocol/ratings_reviews.md'
+  - 'Channels': 'protocol/channels.md'
 - API: api.md
 - Glossary: glossary.md
 - References: references.md
