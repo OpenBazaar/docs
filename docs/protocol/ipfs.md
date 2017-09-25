@@ -1,9 +1,15 @@
-## IPFS
+# IPFS
+
+## Introduction to IPFS
 <a href="https://ipfs.io/">IPFS</a> stands for InterPlanetary File System. It is a hypermedia distribution protocol which forms the core the OpenBazaar network. It uses a Kademlia DHT, to route downloaders to those seeding files. What makes it unique is how IPFS serializes the data to create a cryptographically authenticated data structure known as a *Merkle* *DAG*. 
 
-[Note: much of this description of IPFS is taken verbatim from <a href="http://whatdoesthequantsay.com/2015/09/13/ipfs-introduction-by-example">Christian Lundkvist</a> since he did such a great job]
+## OpenBazaar fork of IPFS
 
-#### IPFS Objects
+The OpenBazaar daemon uses a fork of the [go-ipfs](www.github.com/ipfs/go-ipfs) repository so you will not be able to access non-OpenBazaar related content when connected to the OpenBazaar network. There are different protocol strings to segregate the OpenBazaar network from the main IPFS network and an increased TTL on certain types of DHT data. Offline stores are seeded on the network for a week rather than the default 24 hours. You can find the full diff in the README of the forked [repo](https://github.com/OpenBazaar/go-ipfs). The fork is bundled in the vendor package and will be used automatically when you compile and run the server. Note that you will still see github.com/ipfs/go-ipfs import statements instead of github.com/OpenBazaar/go-ipfs despite the package being a fork. This is done to avoid a major refactor of import statements and make rebasing IPFS much easier.
+
+[Note: much of the following description of IPFS is taken verbatim from <a href="http://whatdoesthequantsay.com/2015/09/13/ipfs-introduction-by-example">Christian Lundkvist</a> since he did such a great job]
+
+## IPFS Objects
 
 Before data is seeded it is wrapped in an IPFS object. Objects have two fields:
 
@@ -44,7 +50,7 @@ Let's create a visualization of the above IPFS object:
 
 <img src="https://imgur.com/download/56T4pfc">
  
-#### Small Files
+### Small Files
 Small files (<256 kB) are represented as an IPFS object with the file data in the `Data` field and no `Links`. For example, a text file that says "Hello World" would look like this:
 ```
 {
@@ -55,7 +61,7 @@ Small files (<256 kB) are represented as an IPFS object with the file data in th
 And in a more visual form:
 <img src="https://imgur.com/download/m2VwTzR">
 
-#### Large Files
+### Large Files
 Files >256 kB in size are split into chunks no larger than 256 kB and these chunks are linked to by the parent IPFS object (with filenames omitted). For example:
 
 ```
@@ -102,7 +108,7 @@ The files hello.txt and my_file.txt both contain the string Hello World!\n. The 
 When representing this directory structure as an IPFS object it looks like this:
 <img src="https://imgur.com/download/0PM5xk9">
 
-#### Versioning
+### Versioning
 IPFS can represent the data structures used by Git to allow for versioned file systems. A `Commit` object has one or more links with names parent0, parent1 etc pointing to previous commits, and one link with name object (this is called tree in Git) that points to the file system structure referenced by that commit.
 
 We give as an example our previous file system directory structure, along with two commits: The first commit is the original structure, and in the second commit we’ve updated the file my_file.txt to say Another World! instead of the original Hello World!.

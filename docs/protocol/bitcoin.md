@@ -1,4 +1,4 @@
-## Bitcoin
+# Bitcoin
 
 The early release of OpenBazaar 2.0 will only accept the cryptocurrency Bitcoin. There is a Shapeshift integration so you can still purchase items on OpenBazaar with other cryptocurrencies via Shapeshift. There are plans to facilitate direct purchases with other cryptocurrencies in the near future.
 
@@ -8,10 +8,10 @@ Bitcoin enables a "trustless" escrow system using multi-signature transactions w
 
 The activation of SegWit in Bitcoin Core should decrease transaction fees in the short term but there are multiple cryptocurrencies that can offer additional or superior features such as lower transaction fees, shorter block times or stronger privacy.
 
-In theory, the OpenBazaar protocol could work with any cryptocurrency, not just Bitcoin. In practice, there are certain features a cryptocurrency must have to be added seamlessly to the OpenBazaar protocol. Multi-signature transactions must be enabled and a UTXO is preferential to the account model. In summary, cryptocurrencies that are a close derivative to Bitcoin are stronger candidates for integrations in the short term.
+In theory, the OpenBazaar protocol could work with any cryptocurrency, not just Bitcoin. In practice, there are certain features a cryptocurrency must have to be added seamlessly to the OpenBazaar protocol. Multi-signature transactions must be enabled and a UTXO model is preferential to the account model. In summary, cryptocurrencies that are a close derivative to Bitcoin are stronger candidates for integrations in the short term.
 
-#### Multi-sig scripts
-If you'd like to learn more about how Bitcoin works we'd suggest reading the <a href="https://bitcoin.org/en/developer-guide">Bitcoin Developer Guide</a>. However, we can provide a quick overview of how the escrow system works. 
+## Multi-sig scripts
+If you'd like to learn more about how Bitcoin works we'd suggest reading the <a href="https://bitcoin.org/en/developer-guide">Bitcoin Developer Guide</a> or [Mastering Bitcoin](https://www.amazon.com/Mastering-Bitcoin-Programming-Open-Blockchain/dp/1491954388/) by Andreas Antonopoulos. However, we can provide a quick overview of how the escrow system works. 
 
 In Bitcoin, the coins are not technically sent to a bitcoin "address" or account. Instead, they are sent to a simple computer program (or script). This script sets the terms upon which the coins are allowed to be transferred. A person seeking to spend bitcoins provides the inputs to the script function and the bitcoin software will execute it. If the script returns `True` (and all other transaction checks pass) then the bitcoins may be transferred to another script. 
 
@@ -45,7 +45,13 @@ OP_ELSE
 OP_ENDIF
 ```
 
-#### Bitcoin Wallets
+## Bitcoin Wallets
 The OpenBazaar protocol specification has nothing to say about which Bitcoin wallet should be used with the protocol. To improve the user experience the reference implementation comes bundled with a built-in wallet. The default wallet implements something call Simplified Payment Verification (SPV) which provides strong cryptographic validation of incoming Bitcoin transactions while using very little of the computer's resources. The drawback to SPV mode is it leaks enough private data to allow potential attackers to figure out which transactions came from the wallet. That information by itself doesn't say who the *owner* of the wallet is, though other investigative techniques might provide that information. 
 
 For this reason, there is a setting in the openbazaar-go config file that allows a user to use bitcoind (a full Bitcoin implementation) with openbazaar-go. Bitcoind is a very heavyweight software and is typically only used by power users, but it does a much better job than SPV at providing transactional privacy. 
+
+## Bitcoin Fees
+
+How are Bitcoin fees calculated?
+
+Bitcoin transaction fees are estimated using the 21 Bitcoin fees API. More details [here](https://bitcoinfees.21.co/api).
