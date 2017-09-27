@@ -6,6 +6,6 @@ The protocol is designed to be censorship resistant and to offer privacy to its 
 
 A long term goal of OpenBazaar is to be cryptocurrency and blockchain agnostic. Limited resources and user experience considerations will restrict progress on this front in the short term. 
 
-The project is guided by the processes of other successful open source projects (Bitcoin, Linux etc). If you would like features to be added to the protocol, it is possible to submit OBIPs (OpenBazaar Improvement Plans) after discussing them with the OpenBazaar core developers.
+The project is guided by the processes of other successful open source projects (Bitcoin, Linux etc). If you would like features to be added to the protocol, it is possible to submit [OBIPs](https://github.com/OpenBazaar/obips) (OpenBazaar Improvement Plans) after discussing them with the OpenBazaar core developers.
 
 
