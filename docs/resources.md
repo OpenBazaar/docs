@@ -6,6 +6,8 @@ Installing OpenBazaar Beta
 
 https://www.youtube.com/watch?v=VzlerMJMOu8&t=176s
 
+https://rawflood.com/blog/site/public/2017/09/29/OpenBazaar-Guide/
+
 Using Shapeshift
 
 https://www.youtube.com/watch?v=RDZUjK2LiKs&feature=youtu.be

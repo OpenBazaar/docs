@@ -4,6 +4,17 @@ Bitcoin is the oldest and most secure cryptocurrency. It aligns with the goals o
 
 Bitcoin enables a "trustless" escrow system using multi-signature transactions where no one party has complete control of the funds. Mainstream payment systems like Paypal and credit cards rely on the payment provider for arbitration in the case of a dispute. With OpenBazaar, a free market for arbitration is created where the participants can agree on a particular moderator. This moderator only has partial control of the funds in escrow.
 
+There are three types of payment on OpenBazaar:
+
+1) Direct payment
+The buyer sends Bitcoin directly to the vendor.
+
+2) Offline payment 
+If the vendor is offline, the buyer sends Bitcoin to a 1-of-2 multi-signature address. If the vendor doesn't come online to fulfil the order, the buyer can refund themselves.
+
+3) Moderated payments
+2-of-3 multi-signature transactions are used for the OpenBazaar escrow system. Due to transaction fees, the value of the order has to be above a certain amount to choose this option. The buyer chooses a moderator from a list of moderators that the vendor has agreed to. The moderator is only aware they were chosen on a transaction when a dispute is raised.
+
 ## Multi-sig scripts
 If you'd like to learn more about how Bitcoin works we'd suggest reading the <a href="https://bitcoin.org/en/developer-guide">Bitcoin Developer Guide</a> or [Mastering Bitcoin](https://www.amazon.com/Mastering-Bitcoin-Programming-Open-Blockchain/dp/1491954388/) by Andreas Antonopoulos. However, we can provide a quick overview of how the escrow system works. 
 
